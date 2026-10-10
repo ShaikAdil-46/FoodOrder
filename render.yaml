@@ -1,0 +1,35 @@
+# Render Blueprint: one free Docker web service for the Spring Boot backend.
+# The MySQL database is external (Aiven free MySQL), so it is not defined here.
+#
+# Deploy with: Render Dashboard > New > Blueprint > pick this repository.
+# Render reads this file and creates the service below.
+#
+# After the first deploy, open the service and set the values marked sync: false.
+services:
+  - type: web
+    name: foodorder-api
+    runtime: docker
+    plan: free
+    region: oregon
+    rootDir: backend
+    healthCheckPath: /actuator/health
+    autoDeploy: true
+    envVars:
+      - key: SERVER_PORT
+        value: "8080"
+      # jdbc:mysql://HOST:PORT/defaultdb?sslMode=REQUIRED&serverTimezone=UTC
+      - key: DB_URL
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      # Example: https://your-site.netlify.app (comma-separate multiple origins)
+      - key: FRONTEND_ORIGIN
+        sync: false
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false

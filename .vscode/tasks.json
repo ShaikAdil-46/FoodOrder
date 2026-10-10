@@ -1,0 +1,54 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "backend: run (H2, no MySQL)",
+      "detail": "Runs the Spring Boot API on http://localhost:8090 using an in-memory H2 database. No MySQL credentials required.",
+      "type": "shell",
+      "command": "mvn",
+      "args": ["-Plocal-h2", "-f", "backend/pom.xml", "spring-boot:run"],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "SPRING_PROFILES_ACTIVE": "local-h2",
+          "SERVER_PORT": "8090"
+        }
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "backend: run (MySQL)",
+      "detail": "Runs the Spring Boot API on http://localhost:8090 against MySQL. Set DB_URL, DB_USER, DB_PASSWORD and JWT_SECRET in your environment first.",
+      "type": "shell",
+      "command": "mvn",
+      "args": ["-f", "backend/pom.xml", "spring-boot:run"],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "SERVER_PORT": "8090"
+        }
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "backend: test",
+      "type": "shell",
+      "command": "mvn",
+      "args": ["-f", "backend/pom.xml", "test"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    },
+    {
+      "label": "frontend: dev",
+      "detail": "Runs the Vite dev server on http://localhost:5173 and proxies /api to the backend on port 8090.",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "dev"],
+      "options": { "cwd": "${workspaceFolder}/frontend" },
+      "isBackground": true,
+      "problemMatcher": []
+    }
+  ]
+}

@@ -80,7 +80,8 @@ export class ApiError extends Error {
   }
 }
 
-const API = '/api'
+const API_BASE = import.meta.env.VITE_API_BASE ?? ''
+const API = `${API_BASE}/api`
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null
