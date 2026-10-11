@@ -15,7 +15,10 @@ services:
     healthCheckPath: /actuator/health
     autoDeploy: true
     envVars:
-      - key: SERVER_PORT
+      # Pin Render's expected port to 8080 so it matches the app and the
+      # Dockerfile EXPOSE. Without this Render defaults to 10000 and relies on
+      # port auto-detection, which can fail the health check.
+      - key: PORT
         value: "8080"
       # jdbc:mysql://HOST:PORT/defaultdb?sslMode=REQUIRED&serverTimezone=UTC
       - key: DB_URL
