@@ -18,6 +18,8 @@ Render has **no managed MySQL**, which is why the database lives at Aiven.
 
 All three providers are free and do **not** require a credit card.
 
+> **Local config:** the backend auto-loads a `.env` file at the repo root when present, so you can keep `DB_URL`, `DB_USER`, `DB_PASSWORD`, `JWT_SECRET`, `ADMIN_EMAIL` and `ADMIN_PASSWORD` there for local runs. Real environment variables take precedence, which is how Render supplies the same values in production.
+
 ---
 
 ## Step 0 — Push this code

@@ -1,0 +1,9 @@
+# Never copy secrets or build output into the image.
+.env
+*.env
+target/
+*.log
+*.log.txt
+error-log.txt
+.idea/
+.vscode/

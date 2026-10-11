@@ -1,5 +1,6 @@
 server:
-  port: ${SERVER_PORT:8080}
+  port: ${SERVER_PORT:${PORT:8080}}
+  forward-headers-strategy: framework
   error:
     include-message: never
     include-stacktrace: never
@@ -7,6 +8,13 @@ server:
 spring:
   application:
     name: foodorder-api
+  # Loads a local .env file when present (development convenience).
+  # Real environment variables always take precedence, so production
+  # deployments read DB_URL, JWT_SECRET, etc. from the host environment.
+  config:
+    import:
+      - optional:file:./.env[.properties]
+      - optional:file:../.env[.properties]
   datasource:
     url: ${DB_URL:jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:foodorder}?createDatabaseIfNotExist=true&serverTimezone=UTC}
     username: ${DB_USER:root}
@@ -37,7 +45,9 @@ management:
 
 foodorder:
   jwt:
-    secret: ${JWT_SECRET:local-development-key-replace-with-a-random-32-byte-secret}
+    # Must be provided via the JWT_SECRET environment variable (or .env).
+    # The app fails fast at startup if it is missing or shorter than 32 bytes.
+    secret: ${JWT_SECRET:}
     expiration-minutes: ${JWT_EXPIRATION_MINUTES:720}
   cors:
     allowed-origins: ${FRONTEND_ORIGIN:http://localhost:5173,http://127.0.0.1:5173}

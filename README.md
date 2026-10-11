@@ -65,6 +65,8 @@ The verified development machine has Java 17.0.20 and Maven 3.9.16. It has Node.
 
 Open PowerShell in the repository root.
 
+> The backend automatically loads a `.env` file from the repository root (or its parent) when one is present, so you can keep local `DB_URL`, `DB_USER`, `DB_PASSWORD`, `JWT_SECRET` and other settings in `.env` instead of exporting them. Real environment variables always take precedence, which is how a production host supplies secrets. `JWT_SECRET` is required: the API fails fast at startup if it is missing or shorter than 32 bytes.
+
 1. **Configure MySQL.** Start the MySQL service if needed. Create a database/user or use a MySQL account you already control. Never put production credentials in source control.
 
    ```powershell
